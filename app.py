@@ -1,4 +1,5 @@
 import html
+import os
 import json
 import tempfile
 from pathlib import Path
@@ -11,6 +12,15 @@ from src.report import save_report
 from src.rules import APPROVE, NEEDS, REJECT
 
 st.set_page_config(page_title="Supplier document checker", page_icon="📄", layout="wide")
+
+# On Streamlit Cloud the key lives in the app's Secrets; locally it comes from .env.
+# extract.py reads environment variables, so copy the secrets there if needed.
+try:
+    for name in ("GEMINI_API_KEY", "GEMINI_MODEL"):
+        if name not in os.environ and name in st.secrets:
+            os.environ[name] = str(st.secrets[name])
+except Exception:
+    pass  # no secrets file (e.g. running locally with .env): nothing to copy
 
 COLOURS = {APPROVE: "#1e7a4c", REJECT: "#b42318", NEEDS: "#b25e09"}
 
