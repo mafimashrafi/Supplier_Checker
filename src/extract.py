@@ -23,16 +23,18 @@ from src.schema import SYSTEM_PROMPT, SupplierDoc
 load_dotenv()
 
 # Rename these if your .env uses different variable names.
-API_KEY = os.environ["GEMINI_API_KEY"]
-MODEL = os.environ["GEMINI_MODEL"]
-
-client = genai.Client(api_key=API_KEY)
+# API_KEY = os.environ["GEMINI_API_KEY"]
+# MODEL = os.environ["GEMINI_MODEL"]
+#
+# client = genai.Client(api_key=API_KEY)
 
 
 def extract_fields(text: str) -> SupplierDoc:
     """Raw document text in, validated SupplierDoc out."""
+    # Rename these if your .env uses different variable names.
+    client = genai.Client(api_key=os.environ["GEMINI_API_KEY"])
     response = client.models.generate_content(
-        model=MODEL,
+        model=os.environ["GEMINI_MODEL"],
         contents=text,
         config=types.GenerateContentConfig(
             system_instruction=SYSTEM_PROMPT,
