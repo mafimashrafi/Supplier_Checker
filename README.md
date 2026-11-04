@@ -11,7 +11,7 @@ Built for BIAI AI Engineer Round 2, Task 1. All companies and documents are fict
 ## Results
 
 <!-- Fill in from outputs/eval_summary.json after running: python run_eval.py -->
-**Score: _ / 10** on the sample packs, using Gemini model `_`.
+**Score: 10 / 10** on the sample packs, using Gemini model `gemini-3.5-flash-lite`.
 
 BIAI did not supply an answer key. The expected verdicts below are our own reading of `data/company-rules.md` and are stored in `tests/expected_verdicts.json`.
 
