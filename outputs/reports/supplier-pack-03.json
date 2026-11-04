@@ -1,0 +1,99 @@
+{
+  "pack": "supplier-pack-03",
+  "supplier": "Karnaphuli Yarn Traders",
+  "item": "C",
+  "system_verdict": "Reject",
+  "final_verdict": "Reject",
+  "decided_by": "system",
+  "reasons": [
+    {
+      "rule": "Reject 1",
+      "level": "Reject",
+      "reason": "Unit price 229 is 9.05% above the maximum 210.00 (limit 3%).",
+      "quote": "229.00",
+      "fields": [
+        "unit_price"
+      ]
+    }
+  ],
+  "review": null,
+  "extraction_notes": [],
+  "extracted": {
+    "supplier_name": {
+      "value": "Karnaphuli Yarn Traders",
+      "quote": "Karnaphuli Yarn Traders"
+    },
+    "item_code": {
+      "value": "C",
+      "quote": "C Polyester sewing thread, cone 800 cone 229.00 183,200.00"
+    },
+    "quantity": {
+      "value": 800.0,
+      "quote": "800 cone 229.00 183,200.00"
+    },
+    "unit_price": {
+      "value": 229.0,
+      "quote": "229.00"
+    },
+    "line_amount": {
+      "value": 183200.0,
+      "quote": "183,200.00"
+    },
+    "subtotal": {
+      "value": 183200.0,
+      "quote": "Subtotal 183,200.00"
+    },
+    "total": {
+      "value": 210680.0,
+      "quote": "Total 210,680.00"
+    },
+    "vat_rate_pct": {
+      "value": 15.0,
+      "quote": "VAT 15%"
+    },
+    "vat_amount": {
+      "value": 27480.0,
+      "quote": "VAT 15% 27,480.00"
+    },
+    "tin": {
+      "value": "103458033391",
+      "quote": "Supplier TIN: 103458033391"
+    },
+    "bin": {
+      "value": "000370341-0101",
+      "quote": "BIN: 000370341-0101"
+    },
+    "advance_pct": {
+      "value": 15.0,
+      "quote": "15% advance payable with the purchase order."
+    },
+    "payment_days_min": {
+      "value": 40.0,
+      "quote": "Balance within 40 days of delivery."
+    },
+    "payment_days_max": {
+      "value": 40.0,
+      "quote": "Balance within 40 days of delivery."
+    },
+    "payment_counted_from": {
+      "value": "delivery",
+      "quote": "Balance within 40 days of delivery."
+    },
+    "delivery_value": {
+      "value": 20.0,
+      "quote": "Delivery within 20 days of PO."
+    },
+    "delivery_unit": {
+      "value": "days",
+      "quote": "Delivery within 20 days of PO."
+    },
+    "penalty_pct_per_week": {
+      "value": 0.5,
+      "quote": "Delay in delivery will attract a penalty of 0.5% of order value per week."
+    },
+    "validity_days": {
+      "value": 30.0,
+      "quote": "This quotation is valid for 30 days from the date above."
+    }
+  }
+}

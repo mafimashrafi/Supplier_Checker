@@ -1,0 +1,99 @@
+{
+  "pack": "supplier-pack-06",
+  "supplier": "Teesta Fabrics Ltd",
+  "item": "A",
+  "system_verdict": "Reject",
+  "final_verdict": "Reject",
+  "decided_by": "system",
+  "reasons": [
+    {
+      "rule": "Reject 3",
+      "level": "Reject",
+      "reason": "The contract has no late-delivery penalty clause.",
+      "quote": null,
+      "fields": [
+        "penalty_pct_per_week"
+      ]
+    }
+  ],
+  "review": null,
+  "extraction_notes": [],
+  "extracted": {
+    "supplier_name": {
+      "value": "Teesta Fabrics Ltd",
+      "quote": "Teesta Fabrics Ltd"
+    },
+    "item_code": {
+      "value": "A",
+      "quote": "A Cotton twill fabric, 280 gsm 12,000 metre 465.00 5,580,000.00"
+    },
+    "quantity": {
+      "value": 12000.0,
+      "quote": "12,000"
+    },
+    "unit_price": {
+      "value": 465.0,
+      "quote": "465.00"
+    },
+    "line_amount": {
+      "value": 5580000.0,
+      "quote": "5,580,000.00"
+    },
+    "subtotal": {
+      "value": 5580000.0,
+      "quote": "5,580,000.00"
+    },
+    "total": {
+      "value": 6417000.0,
+      "quote": "6,417,000.00"
+    },
+    "vat_rate_pct": {
+      "value": 15.0,
+      "quote": "VAT 15%"
+    },
+    "vat_amount": {
+      "value": 837000.0,
+      "quote": "837,000.00"
+    },
+    "tin": {
+      "value": "106458063391",
+      "quote": "Supplier TIN: 106458063391 BIN: 000670641-0101"
+    },
+    "bin": {
+      "value": "000670641-0101",
+      "quote": "Supplier TIN: 106458063391 BIN: 000670641-0101"
+    },
+    "advance_pct": {
+      "value": 10.0,
+      "quote": "10% advance payable with the purchase order."
+    },
+    "payment_days_min": {
+      "value": 60.0,
+      "quote": "Balance within 60 days of delivery."
+    },
+    "payment_days_max": {
+      "value": 60.0,
+      "quote": "Balance within 60 days of delivery."
+    },
+    "payment_counted_from": {
+      "value": "delivery",
+      "quote": "delivery"
+    },
+    "delivery_value": {
+      "value": 27.0,
+      "quote": "Delivery within 27 days of PO."
+    },
+    "delivery_unit": {
+      "value": "days",
+      "quote": "days"
+    },
+    "penalty_pct_per_week": {
+      "value": null,
+      "quote": null
+    },
+    "validity_days": {
+      "value": 30.0,
+      "quote": "This quotation is valid for 30 days from the date above."
+    }
+  }
+}

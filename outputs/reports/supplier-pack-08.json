@@ -1,0 +1,100 @@
+{
+  "pack": "supplier-pack-08",
+  "supplier": "Bhairab Thread and Co",
+  "item": "C",
+  "system_verdict": "Reject",
+  "final_verdict": "Reject",
+  "decided_by": "system",
+  "reasons": [
+    {
+      "rule": "Reject 4",
+      "level": "Reject",
+      "reason": "Supplier TIN and BIN missing.",
+      "quote": "Supplier registration details available on request.",
+      "fields": [
+        "tin",
+        "bin"
+      ]
+    }
+  ],
+  "review": null,
+  "extraction_notes": [],
+  "extracted": {
+    "supplier_name": {
+      "value": "Bhairab Thread and Co",
+      "quote": "Bhairab Thread and Co"
+    },
+    "item_code": {
+      "value": "C",
+      "quote": "C Polyester sewing thread, cone 800 cone 205.00 164,000.00"
+    },
+    "quantity": {
+      "value": 800.0,
+      "quote": "800"
+    },
+    "unit_price": {
+      "value": 205.0,
+      "quote": "205.00"
+    },
+    "line_amount": {
+      "value": 164000.0,
+      "quote": "164,000.00"
+    },
+    "subtotal": {
+      "value": 164000.0,
+      "quote": "Subtotal 164,000.00"
+    },
+    "total": {
+      "value": 188600.0,
+      "quote": "Total 188,600.00"
+    },
+    "vat_rate_pct": {
+      "value": 15.0,
+      "quote": "VAT 15%"
+    },
+    "vat_amount": {
+      "value": 24600.0,
+      "quote": "24,600.00"
+    },
+    "tin": {
+      "value": null,
+      "quote": "Supplier registration details available on request."
+    },
+    "bin": {
+      "value": null,
+      "quote": "Supplier registration details available on request."
+    },
+    "advance_pct": {
+      "value": 10.0,
+      "quote": "10% advance payable with the purchase order."
+    },
+    "payment_days_min": {
+      "value": 30.0,
+      "quote": "Payment within 30 days of delivery."
+    },
+    "payment_days_max": {
+      "value": 30.0,
+      "quote": "Payment within 30 days of delivery."
+    },
+    "payment_counted_from": {
+      "value": "delivery",
+      "quote": "Payment within 30 days of delivery."
+    },
+    "delivery_value": {
+      "value": 18.0,
+      "quote": "Delivery within 18 days of PO."
+    },
+    "delivery_unit": {
+      "value": "days",
+      "quote": "Delivery within 18 days of PO."
+    },
+    "penalty_pct_per_week": {
+      "value": 0.5,
+      "quote": "Late delivery penalty of 0.5% per week of delay."
+    },
+    "validity_days": {
+      "value": 30.0,
+      "quote": "This quotation is valid for 30 days from the date above."
+    }
+  }
+}

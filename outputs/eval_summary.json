@@ -1,0 +1,126 @@
+{
+  "run_at": "2026-11-04T20:24:39+00:00",
+  "model": "gemini-3.5-flash-lite",
+  "correct": 10,
+  "total": 10,
+  "packs": [
+    {
+      "pack": "supplier-pack-01",
+      "supplier": "Padma Textile Mills Ltd",
+      "expected": "Approve",
+      "system_verdict": "Approve",
+      "correct": true,
+      "rules": [],
+      "failed_to_run": false,
+      "seconds": 3.3
+    },
+    {
+      "pack": "supplier-pack-02",
+      "supplier": "Jamuna Trims and Accessories",
+      "expected": "Approve",
+      "system_verdict": "Approve",
+      "correct": true,
+      "rules": [],
+      "failed_to_run": false,
+      "seconds": 2.5
+    },
+    {
+      "pack": "supplier-pack-03",
+      "supplier": "Karnaphuli Yarn Traders",
+      "expected": "Reject",
+      "system_verdict": "Reject",
+      "correct": true,
+      "rules": [
+        "Reject 1"
+      ],
+      "failed_to_run": false,
+      "seconds": 3.5
+    },
+    {
+      "pack": "supplier-pack-04",
+      "supplier": "Surma Packaging Industries",
+      "expected": "Needs a person to check",
+      "system_verdict": "Needs a person to check",
+      "correct": true,
+      "rules": [
+        "Needs 1"
+      ],
+      "failed_to_run": false,
+      "seconds": 2.8
+    },
+    {
+      "pack": "supplier-pack-05",
+      "supplier": "Meghna Carton Works",
+      "expected": "Reject",
+      "system_verdict": "Reject",
+      "correct": true,
+      "rules": [
+        "Reject 2"
+      ],
+      "failed_to_run": false,
+      "seconds": 2.8
+    },
+    {
+      "pack": "supplier-pack-06",
+      "supplier": "Teesta Fabrics Ltd",
+      "expected": "Reject",
+      "system_verdict": "Reject",
+      "correct": true,
+      "rules": [
+        "Reject 3"
+      ],
+      "failed_to_run": false,
+      "seconds": 3.2
+    },
+    {
+      "pack": "supplier-pack-07",
+      "supplier": "Rupsha Zipper Factory",
+      "expected": "Needs a person to check",
+      "system_verdict": "Needs a person to check",
+      "correct": true,
+      "rules": [
+        "Needs 2"
+      ],
+      "failed_to_run": false,
+      "seconds": 2.5
+    },
+    {
+      "pack": "supplier-pack-08",
+      "supplier": "Bhairab Thread and Co",
+      "expected": "Reject",
+      "system_verdict": "Reject",
+      "correct": true,
+      "rules": [
+        "Reject 4"
+      ],
+      "failed_to_run": false,
+      "seconds": 2.7
+    },
+    {
+      "pack": "supplier-pack-09",
+      "supplier": "Dhaleshwari Poly Pack",
+      "expected": "Needs a person to check",
+      "system_verdict": "Needs a person to check",
+      "correct": true,
+      "rules": [
+        "Needs 3",
+        "Needs 6"
+      ],
+      "failed_to_run": false,
+      "seconds": 2.7
+    },
+    {
+      "pack": "supplier-pack-10",
+      "supplier": "Kushiyara Box Industries",
+      "expected": "Reject",
+      "system_verdict": "Reject",
+      "correct": true,
+      "rules": [
+        "Reject 5",
+        "Needs 5"
+      ],
+      "failed_to_run": false,
+      "seconds": 2.6
+    }
+  ]
+}
