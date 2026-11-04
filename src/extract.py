@@ -22,17 +22,21 @@ from src.schema import SYSTEM_PROMPT, SupplierDoc
 
 load_dotenv()
 
-# Rename these if your .env uses different variable names.
-# API_KEY = os.environ["GEMINI_API_KEY"]
-# MODEL = os.environ["GEMINI_MODEL"]
-#
-# client = genai.Client(api_key=API_KEY)
+RETRY = types.HttpRetryOptions(
+    attempts=6,
+    initial_delay=2.0,
+    max_delay=60.0,
+    http_status_codes=[429, 500, 502, 503, 504],
+)
 
 
 def extract_fields(text: str) -> SupplierDoc:
     """Raw document text in, validated SupplierDoc out."""
     # Rename these if your .env uses different variable names.
-    client = genai.Client(api_key=os.environ["GEMINI_API_KEY"])
+    client = genai.Client(
+        api_key=os.environ["GEMINI_API_KEY"],
+        http_options=types.HttpOptions(retry_options=RETRY),
+    )
     response = client.models.generate_content(
         model=os.environ["GEMINI_MODEL"],
         contents=text,
