@@ -17,7 +17,7 @@ def build_report(pack: str, doc: dict | None, decision: dict, review: dict | Non
         "reasons": decision["findings"],
         "review": review,
         "extraction_notes": doc.get("extraction_notes", []),
-        "extracted": {f: v.get("value") for f, v in doc.items() if isinstance(v, dict)},
+        "extracted": {f: v for f, v in doc.items() if isinstance(v, dict)},  # value + quote
     }
 
 

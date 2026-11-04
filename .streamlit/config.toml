@@ -1,0 +1,3 @@
+[theme]
+# Neutral blue for buttons: in this app red means Reject.
+primaryColor = "#2f5d8a"

@@ -118,18 +118,29 @@ def build_graph():
 GRAPH = build_graph()
 
 
+def start_pack(pdf_path: str, ask_human: bool = False) -> tuple[dict, dict]:
+    """Start one pack. Returns (config, state). If the state has "__interrupt__",
+    the graph is paused at human_review; continue it with resume_pack()."""
+    config = {"configurable": {"thread_id": str(uuid.uuid4())}}
+    state = GRAPH.invoke({"pdf_path": str(pdf_path), "ask_human": ask_human}, config)
+    return config, state
+
+
+def resume_pack(config: dict, answer: dict) -> dict:
+    """Continue a paused pack with the person's answer. Returns the new state."""
+    return GRAPH.invoke(Command(resume=answer), config)
+
+
 def run_pack(pdf_path: str, reviewer: Callable[[dict], dict] | None = None) -> dict:
     """Run one pack through the graph and return its report.
 
     reviewer: called with the review question when the system is unsure; must
     return {"verdict": ..., "note": ..., "reviewer": ...}. None = never ask.
     """
-    config = {"configurable": {"thread_id": str(uuid.uuid4())}}
-    result = GRAPH.invoke({"pdf_path": str(pdf_path), "ask_human": reviewer is not None}, config)
-    while "__interrupt__" in result:  # paused at human_review
-        question = result["__interrupt__"][0].value
-        result = GRAPH.invoke(Command(resume=reviewer(question)), config)
-    return result["report"]
+    config, state = start_pack(pdf_path, ask_human=reviewer is not None)
+    while "__interrupt__" in state:  # paused at human_review
+        state = resume_pack(config, reviewer(state["__interrupt__"][0].value))
+    return state["report"]
 
 
 def console_reviewer(question: dict) -> dict:
