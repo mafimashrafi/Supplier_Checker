@@ -18,9 +18,13 @@ from google import genai
 from google.genai import types
 
 from src.ingest import extract_text
-from src.schema import SYSTEM_PROMPT, SupplierDoc
+from src.schema import SupplierDoc
 
 load_dotenv()
+
+# The instructions for Gemini live in their own file so they can be read and edited alone.
+PROMPT_PATH = Path(__file__).resolve().parent.parent / "config" / "extraction_prompt.md"
+SYSTEM_PROMPT = PROMPT_PATH.read_text(encoding="utf-8")
 
 RETRY = types.HttpRetryOptions(
     attempts=6,

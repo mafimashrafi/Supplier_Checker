@@ -1,12 +1,13 @@
 import json
-from functools import lru_cache
+from functools import cache
 from pathlib import Path
 
 import pytest
 from pydantic import ValidationError
 
+from src.extract import SYSTEM_PROMPT
 from src.ingest import extract_text
-from src.schema import SYSTEM_PROMPT, SupplierDoc
+from src.schema import SupplierDoc
 
 ROOT = Path(__file__).resolve().parent.parent
 DATA = ROOT / "data"
@@ -119,7 +120,7 @@ def test_save_json_round_trip(tmp_path):
 # Live: Gemini output vs the answer key (run with -m live)
 # ---------------------------------------------------------------------------
 
-@lru_cache(maxsize=None)
+@cache
 def live_extract(pack: str) -> SupplierDoc:
     """One Gemini call per pack, reused by every live test for that pack."""
     from src.extract import extract_fields

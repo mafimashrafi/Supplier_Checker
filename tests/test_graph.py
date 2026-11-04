@@ -1,6 +1,8 @@
 import json
 from pathlib import Path
+
 import pytest
+
 import src.extract as llm
 import src.graph as graph
 from src.graph import run_pack

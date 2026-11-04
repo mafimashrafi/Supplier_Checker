@@ -1,9 +1,10 @@
 import argparse
 import sys
 import uuid
+from collections.abc import Callable
 from dataclasses import asdict
 from pathlib import Path
-from typing import Callable, TypedDict
+from typing import TypedDict
 
 from langgraph.checkpoint.memory import InMemorySaver
 from langgraph.graph import END, START, StateGraph
@@ -17,7 +18,7 @@ from src.schema import SupplierDoc
 from src.verify import Issue, verify
 
 PR_PATH = Path(__file__).resolve().parent.parent / "data" / "purchase-request.csv"
-MIN_TEXT_CHARS = 20  # less than this means no text layer (e.g. a scan)
+MIN_TEXT_CHARS = 20
 VERDICTS = (APPROVE, REJECT, NEEDS)
 
 
@@ -25,15 +26,13 @@ class State(TypedDict, total=False):
     pdf_path: str
     ask_human: bool
     text: str
-    doc: dict  # SupplierDoc as plain data
+    doc: dict
     issues: list[dict]
-    decision: dict  # {"verdict": ..., "findings": [...]}
-    review: dict  # the person's answer, if asked
+    decision: dict
+    review: dict
     report: dict
     error: str
 
-
-# --- steps -----------------------------------------------------------------
 
 def ingest(state: State) -> State:
     try:
@@ -86,7 +85,6 @@ def report(state: State) -> State:
     return {"report": build_report(pack, state.get("doc"), state["decision"], state.get("review"))}
 
 
-# --- routing ---------------------------------------------------------------
 
 def ok_or_fail(next_step: str):
     return lambda state: "fail" if state.get("error") else next_step

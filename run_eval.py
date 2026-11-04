@@ -3,9 +3,9 @@ import json
 import os
 import sys
 import time
-from datetime import datetime, timezone
+from collections.abc import Callable
+from datetime import UTC, datetime
 from pathlib import Path
-from typing import Callable
 
 from src.graph import run_pack
 from src.report import save_report
@@ -47,7 +47,7 @@ def evaluate(packs: list[str], delay: float = 0,
             progress(i + 1, len(packs), rows[-1])
 
     summary = {
-        "run_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        "run_at": datetime.now(UTC).isoformat(timespec="seconds"),
         "model": os.environ.get("GEMINI_MODEL"),
         "correct": sum(r["correct"] for r in rows),
         "total": sum(r["expected"] is not None for r in rows),
