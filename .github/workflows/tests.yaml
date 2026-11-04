@@ -2,7 +2,9 @@ name: tests
 
 on:
   push:
+    paths-ignore: ["**.md", "outputs/**"]
   pull_request:
+    paths-ignore: ["**.md", "outputs/**"]
   workflow_dispatch:
     inputs:
       live:
