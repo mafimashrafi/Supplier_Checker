@@ -1,13 +1,3 @@
-"""Tests for src/schema.py and src/extract.py.
-
-Two groups:
-  Offline (free, run every time):   pytest tests/test_extract.py
-  Live (calls Gemini, 10 requests): pytest tests/test_extract.py -m live
-
-The expected values in tests/expected_extraction.json were read from the PDF
-text by hand. They are our own answer key, not supplied by BIAI.
-"""
-
 import json
 from functools import lru_cache
 from pathlib import Path
@@ -108,6 +98,12 @@ def test_prompt_contains_no_company_rules():
     """The LLM must never see the rules or be asked for a verdict."""
     for word in ["Approve", "Reject", "Needs a person", "maximum unit price", "purchase request"]:
         assert word.lower() not in SYSTEM_PROMPT.lower(), f"prompt mentions {word!r}"
+
+
+def test_prompt_explains_every_field():
+    """Gemini never sees Field descriptions, so the prompt must name every field."""
+    missing = [f for f in SupplierDoc.model_fields if f not in SYSTEM_PROMPT]
+    assert not missing, f"fields not explained in SYSTEM_PROMPT: {missing}"
 
 
 def test_save_json_round_trip(tmp_path):
