@@ -1,3 +1,10 @@
+"""Tests for src/graph.py and src/report.py (offline, no API calls).
+
+The LLM step is replaced by a stand-in that returns the answer-key values,
+each with a quote copied from a real line of the PDF. Everything else
+(ingest, verify, rules, human review, report) runs for real.
+"""
+
 import json
 from pathlib import Path
 
@@ -6,7 +13,7 @@ import pytest
 import src.extract as llm
 import src.graph as graph
 from src.graph import run_pack
-from src.report import save_report, to_text
+from src.report import checklist, save_report, to_text
 from src.rules import APPROVE, NEEDS, REJECT
 from src.schema import SupplierDoc
 from src.verify import _as_text
@@ -19,20 +26,18 @@ VERDICTS = json.loads((HERE / "expected_verdicts.json").read_text())["verdicts"]
 
 def stand_in_llm(pack: str):
     """An extract_fields() that returns the answer key with real quotes."""
-
     def extract_fields(text: str) -> SupplierDoc:
         lines = text.splitlines()
         data = {}
         for field, value in EXPECTED[pack].items():
             quote = None
             if value == 0:
-                quote = next(l for l in lines if "No advance" in l)
+                quote = next(line for line in lines if "No advance" in line)
             elif value is not None:
                 needle = _as_text(value).lower()
-                quote = next(l for l in lines if needle in l.replace(",", "").lower())
+                quote = next(line for line in lines if needle in line.replace(",", "").lower())
             data[field] = {"value": value, "quote": quote}
         return SupplierDoc.model_validate(data)
-
     return extract_fields
 
 
@@ -72,7 +77,7 @@ def test_unsure_pack_pauses_and_person_decides(monkeypatch):
 
     rep = run(monkeypatch, "supplier-pack-04", reviewer=reviewer)
     assert len(asked) == 1 and asked[0]["findings"][0]["rule"] == "Needs 1"
-    assert rep["system_verdict"] == NEEDS  # the system's own answer is kept for scoring
+    assert rep["system_verdict"] == NEEDS        # the system's own answer is kept for scoring
     assert rep["final_verdict"] == APPROVE
     assert rep["decided_by"] == "person"
 
@@ -127,3 +132,34 @@ def test_report_text_and_save(monkeypatch, tmp_path):
 
 def test_approve_report_says_rules_passed(monkeypatch):
     assert "All company rules passed." in to_text(run(monkeypatch, "supplier-pack-01"))
+
+
+# --- checklist (the rule table in the app) ------------------------------------
+
+def statuses(rep: dict) -> dict:
+    return {row["label"]: row["status"] for row in checklist(rep)}
+
+
+def test_checklist_all_passed_with_quotes(monkeypatch):
+    rows = checklist(run(monkeypatch, "supplier-pack-01"))
+    assert {r["status"] for r in rows} == {"Passed"}
+    assert all(r["quote"] for r in rows if r["label"] != "Every quote found in the document")
+
+
+def test_checklist_marks_reject_as_failed(monkeypatch):
+    s = statuses(run(monkeypatch, "supplier-pack-03"))
+    assert s["Unit price within the maximum"] == "Failed"
+    assert [k for k, v in s.items() if v != "Passed"] == ["Unit price within the maximum"]
+
+
+def test_checklist_marks_needs_as_unsure_with_reason(monkeypatch):
+    rows = checklist(run(monkeypatch, "supplier-pack-09"))
+    unsure = {r["label"]: r for r in rows if r["status"] == "Unsure"}
+    assert set(unsure) == {"Payment 30 to 60 days after delivery", "The numbers add up"}
+    assert "322,000.00" in unsure["The numbers add up"]["reason"]
+
+
+def test_checklist_when_document_unreadable(monkeypatch):
+    monkeypatch.setattr(graph, "extract_text", lambda path: "")
+    rows = checklist(run_pack(str(DATA / "supplier-pack-01.pdf")))
+    assert len(rows) == 1 and rows[0]["status"] == "Unsure"
